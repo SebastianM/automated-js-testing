@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script type="text/javascript">
+    google.load("visualization", "1", {packages:["corechart"]});
+    google.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ['Framwork', 'Stimmen'],
+        ['QUnit',     553],
+        ['Jasmine',   1042],
+        ['Mocha',     944],
+        ['Other', 137],
+        ['Karma',    544],
+        ['Nodeunit',    4],
+        ['Vows', 43],
+        ['YUI Test', 32],
+        ['node-tap / tape', 56]
+      ]);
+
+      var options = {
+        title: '',
+        is3D: true,
+      };
+
+      var chart = new google.visualization.PieChart(document.getElementById('unit-test-frameworks'));
+      chart.draw(data, options);
+    }
+  </script>
+</head>
+<body style="margin:0;padding:0">
+  <div style="width:600px;height:430px;overflow:hidden">
+    <div id="unit-test-frameworks" style="width: 600px; height: 500px"></div>
+  </div>
+</body>
+</html>
