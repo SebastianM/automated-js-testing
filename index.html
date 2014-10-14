@@ -49,7 +49,7 @@ URL: https://code.google.com/p/io-2012-slides
       <img src="images/js-logo.png" alt="JS Logo" width="250" style="float: right" />
       <ul>
         <li>
-          JS Code Testen - Zeitliche Entwicklung
+          JS Code Testen/Debuggen - Zeitliche Entwicklung
         </li>
         <li>
           Unit Tests
@@ -337,6 +337,7 @@ describe('reverse', function() {
     <aside class="gdbar"><img src="images/js-logo.png"></aside>
     <hgroup class="auto-fadein">
       <h2>Istanbul Demo</h2>
+      <h3><a href="karma-demo/coverage/Chrome%2037.0.2062%20(Mac%20OS%20X%2010.9.4)/index.html" style="color:white">&raquo; Demo &laquo;</a></h3>
     </hgroup>
   </slide>
 
@@ -364,12 +365,141 @@ describe('reverse', function() {
     <article>
       <iframe data-src="karma-demo/code-complexity/index.html" style="height: 450px"></iframe>
     </article>
-  </slide>  
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <aside class="gdbar"><img src="images/js-logo.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2>Protractor</h2>
+      <h3>E2E-Tests</h3>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Was sind E2E Tests?</h2>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li style="margin-bottom: 20px;">Testet, dass alle Teile der Applikation miteinander funktionieren</li>
+        <li style="margin-bottom: 20px;">Testet ob sich die Applikation von Anfang bis Ende so verhält wie erwartet</li>
+        <li style="margin-bottom: 20px;">
+          Test aus Endbenutzer-Sicht
+          <ul>
+            <li>(Tests werden im Browser ausgeführt)</li>
+          </ul>
+        </li>
+      </ul>
+    </article> 
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Protractor</h2>
+    </hgroup>
+    <article>
+      <img src="images/protractor-logo.png" style="float: right; width:350px">
+      <ul class="build">
+        <li><a href="https://github.com/angular/protractor">Open Source</a> Projekt von Google</li>
+        <li>
+          Fokus liegt auf AngularJS Applikationen<br />(Syntactic Sugar)
+          <ul>
+            <li>Funktioniert aber auch mit "normalen" Webapplikationen</li>
+          </ul>
+        </li>
+        <li>Tests werden mit Hilfe von <b>Jasmine</b> entwickelt</li>
+        <li>Nutzt Webdriver und Selenium für die Ausführung der Test</li>
+        <li>Sehr gutes Handling mit Asynchronität in JS Apps</li>
+      </ul>
+    </article> 
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Protractor Konfiguration</h2>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="protractor.conf.js">
+exports.config = {
+  // The address of a running selenium server.
+  seleniumAddress: 'http://localhost:4444/wd/hub',
+
+  baseUrl: 'http://localhost:9000',
+
+  // Capabilities to be passed to the webdriver instance.
+  capabilities: {
+    'browserName': 'chrome'
+  },
+
+  specs: ['example-spec.js'],
+
+  jasmineNodeOpts: {
+    showColors: true, // Use colors in the command line report.
+  }
+};</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Beispiel Test - <a href="http://localhost:9999/">Demo App</a></h2>
+    </hgroup>
+    <article>
+      <pre class="prettyprint">
+describe('Home page', function() {
+  beforeEach(function() {
+    browser.ignoreSynchronization = true;
+    browser.get('/');
+  })
+
+  it('should show initial short description', function() {
+    expect($('#short-description').getText()).toEqual('Kurzbeschreibung');
+    expect($('#short-description').isDisplayed()).toBe(true);
+    expect($('#details').isDisplayed()).toBe(false);
+  });
+
+  it('should show details after click', function() {
+    $('#details-button').click();
+    expect($('#details').isDisplayed()).toBe(true);
+    expect($('#details').getText()).toEqual('Details');
+  });
+}); </pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Weiterführende Informationen</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>Interne Javascript Grundlagenschulung</li>
+        <li>AngularJS Schulung</li>
+        <li>
+          Weiterführende Links:
+          <ul>
+            <li><a href="http://jasmine.github.io/2.0/introduction.html">Jasmine Dokumentation/Einführung</a></li>
+            <li><a href="http://karma-runner.github.io/0.12/intro/installation.html">Karma Einführung/Installation</a></li>
+            <li><a href="www.ng-newsletter.com/posts/practical-protractor.html">Protractor Einführung (AngularJS Fokus)</a></li>
+            <li><a href="http://ng-learn.org/2014/02/Protractor_Testing_With_Angular_And_Non_Angular_Sites/">Protractor ohne AngularJS verwenden</a></li>
+          </ul>
+        </li>
+        <li>
+          Bücher:
+          <ul>
+            <li><a href="http://www.amazon.de/JavaScript-Testing-Jasmine-Behavior-Driven-Development/dp/1449356370">JavaScript Testing with Jasmine: JavaScript Behavior-Driven Development von Evan Hahn</a></li>
+            <li><a href="http://www.amazon.de/Testable-JavaScript-Mark-Ethan-Trostler/dp/1449323391/ref=pd_cp_eb_0">Testable JavaScript von Mark Ethan Trostler</a></li>
+          </ul>
+        </li>
+      </ul>
+    </article>
+  </slide>
+
 
   <slide class="thank-you-slide segue nobackground">
     <aside class="gdbar right"><img src="images/js-logo.png"></aside>
     <article class="flexbox vleft auto-fadein">
-      <h2>Fragen?</h2>
+      <h2>Danke!</h2>
     </article>
     <p class="auto-fadein" style="font-size:16px">
       Slides auf Github: https://github.com/SebastianM/automated-js-testing
